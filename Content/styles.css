@@ -13,51 +13,62 @@
 
         .wrapper .sidebar ul li {
             padding: 15px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            border-top: 1px solid rgba(225,225,225,0.05);
-        }
-        .wrapper .sidebar ul li a{
-            color:black;
-            display:block;
         }
 
-        .wrapper .main_content{
-            width:100%;
-            margin-left:210px;
-        }
+            .wrapper .sidebar ul li a {
+                color: black;
+                display: block;
+            }
+
+    .wrapper .main_content {
+        width: 100%;
+        margin-left: 210px;
+    }
 
 .header {
     position: fixed;
-    width:1150px;
-    height:140px;
+    width: 1150px;
+    height: 140px;
     text-align: center;
     padding: 20px;
     border-bottom: 1px solid;
-    vertical-align:middle;
+    vertical-align: middle;
     font-size: x-large;
     background-color: lightyellow;
 }
+
 .proizvodi {
     margin-left: 20px;
     margin-top: 140px;
 }
 
 .photo {
-    margin-top: 140px;
+    margin-top: 150px;
     margin-left: 210px;
     margin-bottom: 420px;
     position: static;
 }
 
-        .price{
-            margin-left:100px;
-            margin-top:229px;
-            margin-bottom:500px;
-            text-align:center;
-            font-size:48px;
-            vertical-align:middle;
-        }
-        .info{
-            margin-top:0px;
-            margin-right:20px;
-        }
+.price {
+    margin-left: 100px;
+    margin-top: 240px;
+    margin-bottom: 500px;
+    text-align: center;
+    font-size: 44px;
+}
+
+.info {
+    margin-top: 520px;
+    margin-left: -800px;
+    width: 900px;
+    font-size: medium;
+}
+
+.list-group-item {
+    background-color: aquamarine;
+    width: 200px;
+    border: none;
+    margin-left: -40px;
+    text-align: center;
+    vertical-align: middle;
+}

@@ -1,0 +1,9 @@
+﻿@using Webshop.Models;
+@foreach (Kategorije k in ViewBag.Kategorije)
+{
+    if (k.ID == Model.KategorijaID)
+    {
+        <text>@k.ImeKategorije</text>
+        continue;
+    }
+}

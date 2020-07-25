@@ -1,0 +1,205 @@
+﻿@model Webshop.Models.Proizvodi
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>Jeste li sigurni da želite obrisati proizvod?</h3>
+<div>
+    <h4>Proizvodi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KategorijaID)
+        </dt>
+
+        <dd>
+            @Html.Partial("_KategorijaProizvoda", Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proizvodac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proizvodac)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cijena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cijena)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isPopust)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isPopust)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Popust)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Popust)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Garancija)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Garancija)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prostor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prostor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Snaga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Snaga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Velicina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Velicina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RadnaFrekvencija)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RadnaFrekvencija)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojJezgri)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojJezgri)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IntegriranaGraficka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IntegriranaGraficka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rezolucija)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rezolucija)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prikljucci)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prikljucci)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipSenzora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipSenzora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojTipki)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojTipki)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TehnologijaPovezivanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TehnologijaPovezivanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OperacijskiSustav)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperacijskiSustav)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VrstaTipkovnice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VrstaTipkovnice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SlikaPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SlikaPath)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

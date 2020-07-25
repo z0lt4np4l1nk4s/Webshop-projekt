@@ -1,8 +1,10 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Webshop.Models;
@@ -100,7 +102,90 @@ namespace Webshop.Controllers
         {
             ViewBag.Kategorije = db.Kategorija;
             Proizvodi proizvod = db.Proizvod.Single(x => x.ID == id);
+            ViewBag.KatID = proizvod.ID;
             return View(proizvod);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            if (listKategorije.Count != 0)
+            {
+                listKategorije.Clear();
+            }
+            foreach (Kategorije k in db.Kategorija)
+            {
+                SelectListItem selectListItem = new SelectListItem();
+                selectListItem.Text = k.ImeKategorije;
+                selectListItem.Value = k.ID.ToString();
+                listKategorije.Add(selectListItem);
+            }
+            Proizvodi proizvod = db.Proizvod.Single(x => x.ID == id);
+            return View(proizvod);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Proizvodi proizvod)
+        {
+            if (ModelState.IsValid)
+            {
+                Proizvodi p = db.Proizvod.Single(x => x.ID == proizvod.ID);
+                if (proizvod.SlikaPath != null)
+                {
+                    if (System.IO.File.Exists(Request.MapPath(p.SlikaPath)))
+                    {
+                        System.IO.File.Delete(Request.MapPath(p.SlikaPath));
+                    }
+                    string fileName = Path.GetFileNameWithoutExtension(proizvod.SlikaFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(proizvod.SlikaFile.FileName);
+                    proizvod.SlikaPath = "~/Images/Proizvodi/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images/Proizvodi/"), fileName);
+                    proizvod.SlikaFile.SaveAs(fileName);
+                }
+                else
+                {
+                    proizvod.SlikaPath = p.SlikaPath;
+                }
+                db.Proizvod.AddOrUpdate(proizvod);
+                db.SaveChanges();
+                return RedirectToAction("Proizvod", new { id = proizvod.ID });
+            }
+            return View();
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            ViewBag.Kategorije = db.Kategorija;
+            if (listKategorije.Count != 0)
+            {
+                listKategorije.Clear();
+            }
+            foreach (Kategorije k in db.Kategorija)
+            {
+                SelectListItem selectListItem = new SelectListItem();
+                selectListItem.Text = k.ImeKategorije;
+                selectListItem.Value = k.ID.ToString();
+                listKategorije.Add(selectListItem);
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Proizvodi proizvod = db.Proizvod.Find(id);
+            if (proizvod == null)
+            {
+                return HttpNotFound();
+            }
+            return View(proizvod);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Proizvodi proizvod = db.Proizvod.Find(id);
+            int kID = proizvod.KategorijaID;
+            db.Proizvod.Remove(proizvod);
+            db.SaveChanges();
+            return RedirectToAction("Kategorija", new { cat = kID });
         }
     }
 }
