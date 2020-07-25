@@ -20,6 +20,7 @@ namespace Webshop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
         { 
@@ -37,6 +38,7 @@ namespace Webshop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(Proizvodi proizvod)
         {
@@ -106,6 +108,7 @@ namespace Webshop.Controllers
             return View(proizvod);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             if (listKategorije.Count != 0)
@@ -123,6 +126,7 @@ namespace Webshop.Controllers
             return View(proizvod);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Edit(Proizvodi proizvod)
         {
@@ -151,6 +155,7 @@ namespace Webshop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             ViewBag.Kategorije = db.Kategorija;
@@ -177,6 +182,7 @@ namespace Webshop.Controllers
             return View(proizvod);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

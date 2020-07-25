@@ -181,9 +181,12 @@
                 </dl>
             </div>
         </div>
+        @if (User.IsInRole("Admin"))
+        {
         <p style="font-size:medium;margin-left:280px;">
             @Html.ActionLink("Uredi", "Edit", new { id = Model.ID })
         </p>
+        }
     </div>
 </div>
 
