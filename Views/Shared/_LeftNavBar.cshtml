@@ -1,0 +1,8 @@
+﻿<div class="sidebar">
+    <ul>
+        @foreach (Webshop.Models.Kategorije k in ViewBag.Kategorije)
+        {
+            <li style="list-style:none"><a href="/Home/Kategorija?cat=@k.ID">@k.ImeKategorije</a></li>
+        }
+    </ul>
+</div>

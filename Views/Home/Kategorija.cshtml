@@ -1,0 +1,88 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Webshop.Models.Proizvodi>
+
+    <div class="header">
+        @foreach (Webshop.Models.Kategorije k in ViewBag.Kategorije)
+        {
+            if (k.ID.ToString() == Request.QueryString["cat"])
+            {
+                <h2><b>@k.ImeKategorije</b></h2>
+                ViewBag.Title = k.ImeKategorije;
+            }
+        }
+    </div>
+<div class="wrapper">
+    @Html.Partial("_LeftNavBar")
+    <div class="main_content">
+        <div class="proizvodi" style="margin-top: 150px;">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+
+            @using (Html.BeginForm("Kategorija", "Home", FormMethod.Get))
+            {
+                @Html.TextBox("search")
+                <input type="submit" value="Pretraži" />
+                <br />
+                <br />
+            }
+            <table class="table" width="800" border="1" style="text-align:center; vertical-align:middle;">
+                <tr>
+                    <th width="80">
+
+                    </th>
+                    <th>
+                        @Html.ActionLink("Naziv", "Kategorija", new { cat = Request.QueryString["cat"], sortBy = ViewBag.SortNaziv, search = Request.QueryString["search"], page = Request.QueryString["page"] })
+                    </th>
+                    <th width="150">
+                        @Html.ActionLink("Cijena", "Kategorija", new { cat = Request.QueryString["cat"], sortBy = ViewBag.SortCijena, search = Request.QueryString["search"], page = Request.QueryString["page"] })
+                    </th>
+                    <th width="150"></th>
+                </tr>
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="4">
+                            <text>
+                                Nema rezultata
+                            </text>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Proizvod", "Home", new { id = item.ID }))'" style="text-align:center">
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.SlikaPath))
+                                {
+                                    <img src="@Url.Content(item.SlikaPath)" width="75" height="75" alt="No photo" />
+                                }
+                                else
+                                {
+                                    <img src="~/Images/NoPhoto.png" width="75" height="75" />
+                                }
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.DisplayFor(modelItem => item.Naziv)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.DisplayFor(modelItem => item.Cijena)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+        <hr />
+        @Html.PagedListPager(Model, page => Url.Action("Racunala", new { cat = Request.QueryString["cat"], page, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+    </div>
+</div>
