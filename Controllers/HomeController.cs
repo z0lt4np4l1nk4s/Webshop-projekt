@@ -40,7 +40,7 @@ namespace Webshop.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult Create(Proizvodi proizvod)
+        public ActionResult Create(Proizvodi proizvod, string KatID)
         {
             if (ModelState.IsValid)
             {
@@ -51,6 +51,7 @@ namespace Webshop.Controllers
                     fileName = Path.Combine(Server.MapPath("~/Images/Proizvodi/"), fileName);
                     proizvod.SlikaFile.SaveAs(fileName);
                 }
+                proizvod.Kategorije = db.Kategorija.Single(x => x.ID.ToString() == KatID);
                 db.Proizvod.Add(proizvod);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -70,7 +71,7 @@ namespace Webshop.Controllers
 
         public ActionResult Kategorija(int cat, string search, string sortBy, int? page)
         {
-            var p = db.Proizvod.Where(x => x.KategorijaID == cat).ToList().AsQueryable();
+            var p = db.Proizvod.Where(x => x.Kategorije.ID == cat).ToList().AsQueryable();
             ViewBag.Kategorije = db.Kategorija;
             ViewBag.SortNaziv = sortBy == "Naziv" ? "Naziv desc" : "Naziv";
             ViewBag.SortCijena = sortBy == "Cijena" ? "Cijena desc" : "Cijena";
@@ -188,7 +189,7 @@ namespace Webshop.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Proizvodi proizvod = db.Proizvod.Find(id);
-            int kID = proizvod.KategorijaID;
+            int kID = proizvod.Kategorije.ID;
             db.Proizvod.Remove(proizvod);
             db.SaveChanges();
             return RedirectToAction("Kategorija", new { cat = kID });

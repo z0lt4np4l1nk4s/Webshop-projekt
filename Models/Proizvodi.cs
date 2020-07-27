@@ -12,7 +12,6 @@ namespace Webshop.Models
         [Key]
         public int ID { get; set; }
         [Display(Name = "Kategorija")]
-        public int KategorijaID { get; set; }
         public virtual Kategorije Kategorije { get; set; }
         [Required]
         public string Naziv { get; set; }

@@ -11,6 +11,7 @@ namespace Webshop.Models
         [Key]
         public int ID { get; set; }
         [Required]
+        [Display(Name = "Ime kategorije")]
         public string ImeKategorije { get; set; }
         public virtual ICollection<Proizvodi> Proizvodi { get; set; }
 

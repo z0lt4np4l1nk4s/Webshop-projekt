@@ -8,11 +8,22 @@
 </div>
 <div class="wrapper">
     @Html.Partial("_LeftNavBar")
-    <div class="photo">
-        <img src="@Url.Content(Model.SlikaPath)" width="300" height="300" alt="No photo" />
-    </div>
-    <div class="price" style="width:200px;">
-        @Html.DisplayFor(model => model.Cijena)
+    @if (!string.IsNullOrEmpty(Model.SlikaPath))
+    {
+        <div class="photo">
+            <img src="@Url.Content(Model.SlikaPath)" width="300" height="300" alt="No photo" />
+        </div>
+    }
+    else
+    {
+        <div class="photo">
+            <img src="~/Images/NoPhoto.png" width="300" height="300" alt="No photo" />
+        </div>
+    }
+    <div class="price">
+        <span style="width:200px;">
+            <text>@Model.Cijena</text>
+        </span>
     </div>
     <br />
     <hr />
@@ -43,7 +54,7 @@
                     <dd>
                         @Html.DisplayFor(model => model.Garancija) <text>godina</text>
                     </dd>
-                    @if (Model.KategorijaID == 1 || Model.KategorijaID == 8 || Model.KategorijaID == 9)
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 8 || Model.Kategorije.ID == 9)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.RAM):
@@ -54,7 +65,7 @@
                         </dd>
                     }
 
-                    @if (Model.KategorijaID == 1 || Model.KategorijaID == 6 || Model.KategorijaID == 7)
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 6 || Model.Kategorije.ID == 7)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.Prostor):
@@ -64,7 +75,7 @@
                             @Html.DisplayFor(model => model.Prostor)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 1 || Model.KategorijaID == 10)
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 10)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.Snaga):
@@ -81,7 +92,7 @@
                     <dd>
                         @Html.DisplayFor(model => model.Velicina)
                     </dd>
-                    @if (Model.KategorijaID == 1 || Model.KategorijaID == 5)
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 5)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.RadnaFrekvencija):
@@ -99,7 +110,7 @@
                             @Html.DisplayFor(model => model.BrojJezgri)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 1)
+                    @if (Model.Kategorije.ID == 1)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.IntegriranaGraficka):
@@ -109,7 +120,7 @@
                             @Html.DisplayFor(model => model.IntegriranaGraficka)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 2)
+                    @if (Model.Kategorije.ID == 2)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.Rezolucija):
@@ -119,7 +130,7 @@
                             @Html.DisplayFor(model => model.Rezolucija)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 1 || Model.KategorijaID == 2 || Model.KategorijaID == 3 || Model.KategorijaID == 4)
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 2 || Model.Kategorije.ID == 3 || Model.Kategorije.ID == 4)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.Prikljucci):
@@ -129,7 +140,7 @@
                             @Html.DisplayFor(model => model.Prikljucci)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 12)
+                    @if (Model.Kategorije.ID == 12)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.TipSenzora):
@@ -148,7 +159,7 @@
                         </dd>
                     }
 
-                    @if (Model.KategorijaID == 11 || Model.KategorijaID == 12)
+                    @if (Model.Kategorije.ID == 11 || Model.Kategorije.ID == 12)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.TehnologijaPovezivanja):
@@ -158,7 +169,7 @@
                             @Html.DisplayFor(model => model.TehnologijaPovezivanja)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 1)
+                    @if (Model.Kategorije.ID == 1)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.OperacijskiSustav):
@@ -168,7 +179,7 @@
                             @Html.DisplayFor(model => model.OperacijskiSustav)
                         </dd>
                     }
-                    @if (Model.KategorijaID == 11)
+                    @if (Model.Kategorije.ID == 11)
                     {
                         <dt>
                             @Html.DisplayNameFor(model => model.VrstaTipkovnice):
@@ -183,9 +194,9 @@
         </div>
         @if (User.IsInRole("Admin"))
         {
-        <p style="font-size:medium;margin-left:280px;">
-            @Html.ActionLink("Uredi", "Edit", new { id = Model.ID })
-        </p>
+            <p style="font-size:medium;margin-left:280px;">
+                @Html.ActionLink("Uredi", "Edit", new { id = Model.ID })
+            </p>
         }
     </div>
 </div>
