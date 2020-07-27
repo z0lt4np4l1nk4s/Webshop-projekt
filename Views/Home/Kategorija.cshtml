@@ -1,9 +1,9 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IPagedList<Webshop.Models.Proizvodi>
+@model IPagedList<Webshop.Models.Product>
 
     <div class="header">
-        @foreach (Webshop.Models.Kategorije k in ViewBag.Kategorije)
+        @foreach (Webshop.Models.Category k in ViewBag.Kategorije)
         {
             if (k.ID.ToString() == Request.QueryString["cat"])
             {
@@ -62,7 +62,7 @@
                 {
                     foreach (var item in Model)
                     {
-                        <tr onclick="location.href = '@(Url.Action("Proizvod", "Home", new { id = item.ID }))'" style="text-align:center">
+                        <tr onclick="location.href = '@(Url.Action("Show", "Proizvod", new { id = item.ID }))'" style="text-align:center">
                             <td>
                                 @if (!string.IsNullOrEmpty(item.SlikaPath))
                                 {
@@ -82,8 +82,8 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <td style="vertical-align:middle">
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    @Html.ActionLink("Uredi", "Edit", "Proizvod", new { id = item.ID }, null) |
+                                    @Html.ActionLink("Uredi", "Delete", "Proizvod", new { id = item.ID }, null)
                                 </td>
                             }
                         </tr>
@@ -93,6 +93,6 @@
             </table>
         </div>
         <hr />
-        @Html.PagedListPager(Model, page => Url.Action("Racunala", new { cat = Request.QueryString["cat"], page, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+        @Html.PagedListPager(Model, page => Url.Action("Kategorija", new { cat = Request.QueryString["cat"], page, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
     </div>
 </div>

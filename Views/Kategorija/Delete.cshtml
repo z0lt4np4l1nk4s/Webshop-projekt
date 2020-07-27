@@ -1,0 +1,39 @@
+﻿@model Webshop.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>Jeste li sigurni da želite obrisati kategoriju?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ImeKategorije)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImeKategorije)
+        </dd>
+        @if (!string.IsNullOrEmpty(Model.SlikaPath))
+        {
+            <img src="@Url.Content(Model.SlikaPath)" alt="No photo" />
+        }
+        <dt>
+            @Html.DisplayName("Slika")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SlikaPath)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Obriši" class="btn btn-default" /> |
+            @Html.ActionLink("Povratak", "Index")
+        </div>
+    }
+</div>

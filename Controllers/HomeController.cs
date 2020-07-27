@@ -17,62 +17,13 @@ namespace Webshop.Controllers
         public static List<SelectListItem> listKategorije = new List<SelectListItem>();
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public ActionResult Create()
-        { 
-            if (listKategorije.Count != 0)
-            {
-                listKategorije.Clear();
-            }
-            foreach (Kategorije k in db.Kategorija)
-            {
-                SelectListItem selectListItem = new SelectListItem();
-                selectListItem.Text = k.ImeKategorije;
-                selectListItem.Value = k.ID.ToString();
-                listKategorije.Add(selectListItem);
-            }
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult Create(Proizvodi proizvod, string KatID)
-        {
-            if (ModelState.IsValid)
-            {
-                if (proizvod.SlikaFile != null)
-                {
-                    string fileName = Path.GetFileNameWithoutExtension(proizvod.SlikaFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(proizvod.SlikaFile.FileName);
-                    proizvod.SlikaPath = "~/Images/Proizvodi/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("~/Images/Proizvodi/"), fileName);
-                    proizvod.SlikaFile.SaveAs(fileName);
-                }
-                proizvod.Kategorije = db.Kategorija.Single(x => x.ID.ToString() == KatID);
-                db.Proizvod.Add(proizvod);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                foreach (ModelState modelState in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError error in modelState.Errors)
-                    {
-                        Response.Write(error);
-                    }
-                }
-            }
-            return View();
+            return View(db.Category.ToList());
         }
 
         public ActionResult Kategorija(int cat, string search, string sortBy, int? page)
         {
-            var p = db.Proizvod.Where(x => x.Kategorije.ID == cat).ToList().AsQueryable();
-            ViewBag.Kategorije = db.Kategorija;
+            var p = db.Product.Where(x => x.Kategorije.ID == cat).ToList().AsQueryable();
+            ViewBag.Kategorije = db.Category;
             ViewBag.SortNaziv = sortBy == "Naziv" ? "Naziv desc" : "Naziv";
             ViewBag.SortCijena = sortBy == "Cijena" ? "Cijena desc" : "Cijena";
             p = p.AsQueryable();
@@ -99,100 +50,6 @@ namespace Webshop.Controllers
                     break;
             }
             return View(p.ToList().ToPagedList(page ?? 1, 5));
-        }
-
-        public ActionResult Proizvod(int id)
-        {
-            ViewBag.Kategorije = db.Kategorija;
-            Proizvodi proizvod = db.Proizvod.Single(x => x.ID == id);
-            ViewBag.KatID = proizvod.ID;
-            return View(proizvod);
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
-        {
-            if (listKategorije.Count != 0)
-            {
-                listKategorije.Clear();
-            }
-            foreach (Kategorije k in db.Kategorija)
-            {
-                SelectListItem selectListItem = new SelectListItem();
-                selectListItem.Text = k.ImeKategorije;
-                selectListItem.Value = k.ID.ToString();
-                listKategorije.Add(selectListItem);
-            }
-            Proizvodi proizvod = db.Proizvod.Single(x => x.ID == id);
-            return View(proizvod);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult Edit(Proizvodi proizvod)
-        {
-            if (ModelState.IsValid)
-            {
-                Proizvodi p = db.Proizvod.Single(x => x.ID == proizvod.ID);
-                if (proizvod.SlikaPath != null)
-                {
-                    if (System.IO.File.Exists(Request.MapPath(p.SlikaPath)))
-                    {
-                        System.IO.File.Delete(Request.MapPath(p.SlikaPath));
-                    }
-                    string fileName = Path.GetFileNameWithoutExtension(proizvod.SlikaFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(proizvod.SlikaFile.FileName);
-                    proizvod.SlikaPath = "~/Images/Proizvodi/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("~/Images/Proizvodi/"), fileName);
-                    proizvod.SlikaFile.SaveAs(fileName);
-                }
-                else
-                {
-                    proizvod.SlikaPath = p.SlikaPath;
-                }
-                db.Proizvod.AddOrUpdate(proizvod);
-                db.SaveChanges();
-                return RedirectToAction("Proizvod", new { id = proizvod.ID });
-            }
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
-        {
-            ViewBag.Kategorije = db.Kategorija;
-            if (listKategorije.Count != 0)
-            {
-                listKategorije.Clear();
-            }
-            foreach (Kategorije k in db.Kategorija)
-            {
-                SelectListItem selectListItem = new SelectListItem();
-                selectListItem.Text = k.ImeKategorije;
-                selectListItem.Value = k.ID.ToString();
-                listKategorije.Add(selectListItem);
-            }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Proizvodi proizvod = db.Proizvod.Find(id);
-            if (proizvod == null)
-            {
-                return HttpNotFound();
-            }
-            return View(proizvod);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Proizvodi proizvod = db.Proizvod.Find(id);
-            int kID = proizvod.Kategorije.ID;
-            db.Proizvod.Remove(proizvod);
-            db.SaveChanges();
-            return RedirectToAction("Kategorija", new { cat = kID });
-        }
+        }      
     }
 }

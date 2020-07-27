@@ -1,111 +1,71 @@
-﻿@{
+﻿@model IEnumerable<Webshop.Models.Category>
+@{
     ViewBag.Title = "Home Page";
 }
-    <div class="container" style="width:800px; height:1050px; border:initial; text-align:center; vertical-align:central; background-color:whitesmoke; align-content:center">
-        <br />
-        <p style="font-size:xx-large">Kategorije</p>
-        <hr />
-        <a href="/Home/Kategorija?cat=1">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: left">
-                <img src="~/Images/Kategorije/PC.png" alt="No photo" />
+<div class="container" style="width:800px; border:initial; text-align:center; vertical-align:central; background-color:whitesmoke; align-content:center">
+    <br />
+    <p style="font-size:xx-large">Kategorije</p>
+    <hr />
+    @{
+        int i = 0;
+        foreach (Webshop.Models.Category c in Model)
+        {
+            <a href="/Home/Kategorija?cat=@c.ID">
+                @if (i % 3 == 0)
+                {
+                    <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: left">
+                        @if (string.IsNullOrEmpty(c.SlikaPath))
+                        {
+                            <img src="~/Images/NoPhoto.png" alt="No photo"/>
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(c.SlikaPath)" alt="No photo"  style="width:128px;height:128px"/>
+                        }
+                        <br />
+                        <br />
+                        <p style="font-size:medium"><b>@c.ImeKategorije</b></p>
+                    </div>
+                }
+                else if (i % 3 == 2)
+                {
+                    <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: none">
+                        @if (string.IsNullOrEmpty(c.SlikaPath))
+                        {
+                            <img src="~/Images/NoPhoto.png" alt="No photo" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(c.SlikaPath)" alt="No photo" style="width:128px;height:128px"/>
+                        }
+                        <br />
+                        <br />
+                        <p style="font-size:medium"><b>@c.ImeKategorije</b></p>
+                    </div>
+                }
+                else if (i % 3 == 1)
+                {
+                    <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: right">
+                        @if (string.IsNullOrEmpty(c.SlikaPath))
+                        {
+                            <img src="~/Images/NoPhoto.png" alt="No photo" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(c.SlikaPath)" alt="No photo" style="width:128px;height:128px"/>
+                        }
+                        <br />
+                        <br />
+                        <p style="font-size:medium"><b>@c.ImeKategorije</b></p>
+                    </div>
+                }
+            </a>
+            i++;
+            if (i % 3 == 0)
+            {
                 <br />
                 <br />
-                <p style="font-size:medium"><b>Računalo</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=3">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: right">
-                <img src="~/Images/Kategorije/PCTower.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Kućište</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=2">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: none">
-                <img src="~/Images/Kategorije/Monitor.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Monitor</b></p>
-            </div>
-        </a>
-        <br />
-        <br />
-        <a href="/Home/Kategorija?cat=4">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: left">
-                <img src="~/Images/Kategorije/Motherboard.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Matična ploča</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=6">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: right">
-                <img src="~/Images/Kategorije/HDD.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Tvrdi disk</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=5">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: none">
-                <img src="~/Images/Kategorije/CPU.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Procesor</b></p>
-            </div>
-        </a>
-        <br />
-        <br />
-        <a href="/Home/Kategorija?cat=7">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: left">
-                <img src="~/Images/Kategorije/SSD.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>SSD disk</b></p>
-            </div>
-        </a>
-
-        <a href="/Home/Kategorija?cat=9">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: right">
-                <img src="~/Images/Kategorije/GPU.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Grafička kartica</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=8">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: none">
-                <img src="~/Images/Kategorije/RAM.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>RAM memorija</b></p>
-            </div>
-        </a>
-        <br />
-        <br />
-        <a href="/Home/Kategorija?cat=10">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: left">
-                <img src="~/Images/Kategorije/PowerSupply.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Napajanje</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=12">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: right">
-                <img src="~/Images/Kategorije/Mouse.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Miš</b></p>
-            </div>
-        </a>
-        <a href="/Home/Kategorija?cat=11">
-            <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: none">
-                <img src="~/Images/Kategorije/Keyboard.png" alt="No photo" />
-                <br />
-                <br />
-                <p style="font-size:medium"><b>Tipkovnica</b></p>
-            </div>
-        </a>
-    </div>
+            }
+        }
+    }
+</div>

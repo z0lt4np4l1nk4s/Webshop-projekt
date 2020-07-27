@@ -8,7 +8,7 @@ namespace Webshop.Models
 {
     public class WebshopDBContext : DbContext
     {
-        public DbSet<Proizvodi> Proizvod { get; set; }
-        public DbSet<Kategorije> Kategorija { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

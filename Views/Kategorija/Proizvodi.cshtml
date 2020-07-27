@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Webshop.Models.Proizvodi>
+﻿@model IEnumerable<Webshop.Models.Product>
 
 @{
     ViewBag.Title = "Kategorije proizvoda";
@@ -28,7 +28,7 @@
             @Html.DisplayFor(modelItem => item.Kategorije.ImeKategorije)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditProizvod", new { id=item.ID })
+            @Html.ActionLink("Uredi", "EditProizvod", new { id=item.ID })
         </td>
     </tr>
 }

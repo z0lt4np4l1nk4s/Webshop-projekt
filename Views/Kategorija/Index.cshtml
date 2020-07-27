@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Webshop.Models.Kategorije>
+﻿@model IEnumerable<Webshop.Models.Category>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Kategorije</h2>
 
 <p>
     @Html.ActionLink("Dodaj novo", "Create") <text> | </text> @Html.ActionLink("Uredi kategorije proizvoda", "Proizvodi")
@@ -29,8 +29,8 @@
             @Html.Partial("_BrojProizvoda", item)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Uredi", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Obriši", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

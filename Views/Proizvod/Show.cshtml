@@ -1,0 +1,203 @@
+﻿@model Webshop.Models.Product
+
+@{
+    ViewBag.Title = "Proizvod";
+}
+<div class="header">
+    @Html.DisplayFor(model => model.Naziv)
+</div>
+<div class="wrapper">
+    @Html.Partial("_LeftNavBar")
+    @if (!string.IsNullOrEmpty(Model.SlikaPath))
+    {
+        <div class="photo">
+            <img src="@Url.Content(Model.SlikaPath)" width="300" height="300" alt="No photo" />
+        </div>
+    }
+    else
+    {
+        <div class="photo">
+            <img src="~/Images/NoPhoto.png" width="300" height="300" alt="No photo" />
+        </div>
+    }
+    <div class="price">
+        <span style="width:200px;">
+            <text>@Model.Cijena</text>
+        </span>
+    </div>
+    <br />
+    <hr />
+    <div class="container">
+        <div class="main_content">
+            <div class="info">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Opis):
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Opis)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Proizvodac):
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Proizvodac)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Garancija):
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Garancija) <text>godina</text>
+                    </dd>
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 8 || Model.Kategorije.ID == 9)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RAM):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RAM)
+                        </dd>
+                    }
+
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 6 || Model.Kategorije.ID == 7)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Prostor):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Prostor)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 10)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Snaga):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Snaga)
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Velicina):
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Velicina)
+                    </dd>
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 5)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RadnaFrekvencija):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RadnaFrekvencija)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.BrojJezgri):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.BrojJezgri)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 1)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.IntegriranaGraficka):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.IntegriranaGraficka)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 2)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Rezolucija):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Rezolucija)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 2 || Model.Kategorije.ID == 3 || Model.Kategorije.ID == 4)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Prikljucci):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Prikljucci)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 12)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TipSenzora):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TipSenzora)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.BrojTipki):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.BrojTipki)
+                        </dd>
+                    }
+
+                    @if (Model.Kategorije.ID == 11 || Model.Kategorije.ID == 12)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TehnologijaPovezivanja):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TehnologijaPovezivanja)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 1)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OperacijskiSustav):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.OperacijskiSustav)
+                        </dd>
+                    }
+                    @if (Model.Kategorije.ID == 11)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VrstaTipkovnice):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.VrstaTipkovnice)
+                        </dd>
+                    }
+                </dl>
+            </div>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <p style="font-size:medium;margin-left:280px;">
+                @Html.ActionLink("Uredi", "Edit", "Proizvod", new { id = Model.ID }, null)
+            </p>
+        }
+    </div>
+</div>
+
