@@ -10,7 +10,7 @@
         int i = 0;
         foreach (Webshop.Models.Category c in Model)
         {
-            <a href="/Home/Kategorija?cat=@c.ID">
+            <a href="/Kategorija/Proizvodi?cat=@c.ID">
                 @if (i % 3 == 0)
                 {
                     <div class="container" style="width: 200px; height: 200px; border: solid; text-align: center; vertical-align: central; background-color: lightgoldenrodyellow; float: left">

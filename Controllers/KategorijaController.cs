@@ -9,25 +9,60 @@ using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 using Webshop.Models;
+using PagedList;
 
 namespace Webshop.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class KategorijaController : Controller
     {
         WebshopDBContext db = new WebshopDBContext();
         // GET: Kategorija
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             ViewBag.Proizvodi = db.Product;
             return View(db.Category.ToList());
         }
 
+        public ActionResult Proizvodi(int cat, string search, string sortBy, int? page)
+        {
+            var p = db.Product.Where(x => x.Kategorije.ID == cat).ToList().AsQueryable();
+            ViewBag.Kategorije = db.Category;
+            ViewBag.SortNaziv = sortBy == "Naziv" ? "Naziv desc" : "Naziv";
+            ViewBag.SortCijena = sortBy == "Cijena" ? "Cijena desc" : "Cijena";
+            p = p.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                p = p.Where(x => x.Naziv.ToLower().StartsWith(search.ToLower()) || x.Naziv.ToLower().Contains(search.ToLower()));
+            }
+            switch (sortBy)
+            {
+                case "Naziv":
+                    p = p.OrderBy(x => x.Naziv);
+                    break;
+                case "Naziv desc":
+                    p = p.OrderByDescending(x => x.Naziv);
+                    break;
+                case "Cijena":
+                    p = p.OrderBy(x => x.Cijena);
+                    break;
+                case "Cijena desc":
+                    p = p.OrderByDescending(x => x.Cijena);
+                    break;
+                default:
+                    p = p.OrderBy(x => x.ID);
+                    break;
+            }
+            return View(p.ToList().ToPagedList(page ?? 1, 5));
+        }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(Category kategorija)
         {
@@ -47,12 +82,14 @@ namespace Webshop.Controllers
             return View(kategorija);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             Category k = db.Category.Single(x => x.ID == id);
             return View(k);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Edit(Category kategorija)
         {
@@ -82,7 +119,8 @@ namespace Webshop.Controllers
             return View(kategorija);
         }
 
-        public ActionResult Proizvodi()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Proizvod()
         {
             if (HomeController.listKategorije.Count != 0)
             {
@@ -95,15 +133,17 @@ namespace Webshop.Controllers
                 selectListItem.Value = k.ID.ToString();
                 HomeController.listKategorije.Add(selectListItem);
             }
-            return View(db.Category.ToList());
+            return View(db.Product.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProizvod(int id)
         {
             Product p = db.Product.Single(x => x.ID == id);
             return View(p);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditProizvod([Bind(Include = "ID,Kategorije")] Product proizvod)
         {
@@ -114,7 +154,7 @@ namespace Webshop.Controllers
             return RedirectToAction("Proizvodi");
         }
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,6 +168,7 @@ namespace Webshop.Controllers
             }
             return View(kategorija);
         }
+
 
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]

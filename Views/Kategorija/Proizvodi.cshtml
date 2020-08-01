@@ -1,36 +1,98 @@
-﻿@model IEnumerable<Webshop.Models.Product>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Webshop.Models.Product>
 
-@{
-    ViewBag.Title = "Kategorije proizvoda";
-}
-<br />
-@Html.ActionLink("Povratak", "Index")
-<br />
-<br />
+    <div class="header">
+        @foreach (Webshop.Models.Category k in ViewBag.Kategorije)
+        {
+            if (k.ID.ToString() == Request.QueryString["cat"])
+            {
+                <h2><b>@k.ImeKategorije</b></h2>
+                ViewBag.Title = k.ImeKategorije;
+            }
+        }
+    </div>
+<div class="wrapper">
+    @Html.Partial("_LeftNavBar")
+    <div class="main_content">
+        <div class="proizvodi" style="margin-top: 150px;">
+            @if (User.IsInRole("Admin"))
+            {
+                <p>
+                    @Html.ActionLink("Dodaj novi proizvod", "Create", "Proizvod")
+                </p>
+            }
+            @using (Html.BeginForm("Kategorija", "Home", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"], page = Request.QueryString["page"] }, FormMethod.Get, null))
+            {
+                @Html.TextBox("search")
+                @Html.Hidden("cat", Request.QueryString["cat"])
+                @Html.Hidden("sortBy", Request.QueryString["sortBy"])
+                @Html.Hidden("page", Request.QueryString["page"])
+                <input type="submit" value="Pretraži" />
+                <br />
+                <br />
+            }
+            <table class="table" width="800" border="1" style="text-align:center; vertical-align:middle;">
+                <tr>
+                    <th width="80">
 
-<table class="table" style="text-align:center" border="1">
-    <tr>
-        <th style="text-align:center">
-            @Html.DisplayNameFor(model => model.Naziv)
-        </th>
-        <th style="text-align:center">
-            @Html.DisplayNameFor(model => model.Kategorije)
-        </th>
-        <th style="text-align:center">Actions</th>
-    </tr>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Naziv", "Kategorija", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = ViewBag.SortNaziv, page = Request.QueryString["page"] })
+                    </th>
+                    <th width="150">
+                        @Html.ActionLink("Cijena", "Kategorija", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = ViewBag.SortCijena, page = Request.QueryString["page"] })
+                    </th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th width="150">Actions</th>
+                    }
+                </tr>
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="3">
+                            <text>
+                                Nema rezultata
+                            </text>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr onclick="location.href = '@(Url.Action("Show", "Proizvod", new { id = item.ID }))'" style="text-align:center">
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.SlikaPath))
+                                {
+                                    <img src="@Url.Content(item.SlikaPath)" width="75" height="75" alt="No photo" />
+                                }
+                                else
+                                {
+                                    <img src="~/Images/NoPhoto.png" width="75" height="75" />
+                                }
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.DisplayFor(modelItem => item.Naziv)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.DisplayFor(modelItem => item.Cijena)
+                            </td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td style="vertical-align:middle">
+                                    @Html.ActionLink("Uredi", "Edit", "Proizvod", new { id = item.ID }, null) |
+                                    @Html.ActionLink("Uredi", "Delete", "Proizvod", new { id = item.ID }, null)
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kategorije.ImeKategorije)
-        </td>
-        <td>
-            @Html.ActionLink("Uredi", "EditProizvod", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+            </table>
+        </div>
+        <hr />
+        @Html.PagedListPager(Model, page => Url.Action("Kategorija", new { cat = Request.QueryString["cat"], page, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+    </div>
+</div>

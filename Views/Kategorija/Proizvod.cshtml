@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Webshop.Models.Product>
+
+@{
+    ViewBag.Title = "Kategorije proizvoda";
+}
+<br />
+@Html.ActionLink("Povratak", "Index")
+<br />
+<br />
+
+<table class="table" style="text-align:center" border="1">
+    <tr>
+        <th style="text-align:center">
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th style="text-align:center">
+            @Html.DisplayNameFor(model => model.Kategorije)
+        </th>
+        <th style="text-align:center">Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kategorije.ImeKategorije)
+        </td>
+        <td>
+            @Html.ActionLink("Uredi", "EditProizvod", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
