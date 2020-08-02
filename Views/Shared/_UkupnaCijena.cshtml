@@ -1,0 +1,21 @@
+﻿@{
+    int a = 0;
+    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+    foreach (var item in Model)
+    {
+        foreach (char c in item.Cijena)
+        {
+            if (char.IsDigit(c))
+            {
+                sb.Append(c);
+            }
+            else if (c == ',')
+            {
+                break;
+            }
+        }
+        a += int.Parse(sb.ToString());
+        sb.Clear();
+    }
+    <text>@a</text>
+}

@@ -14,6 +14,7 @@ namespace Webshop.Controllers
     public class ProizvodController : Controller
     {
         WebshopDBContext db = new WebshopDBContext();
+        public static List<Product> CartList = new List<Product>();
 
         public ActionResult Show(int id)
         {
@@ -21,6 +22,14 @@ namespace Webshop.Controllers
             Product proizvod = db.Product.Single(x => x.ID == id);
             ViewBag.KatID = proizvod.ID;
             return View(proizvod);
+        }
+
+        [HttpPost, ActionName("Show")]
+        public ActionResult AddToCart(int id)
+        {
+            Product proizvod = db.Product.Single(x => x.ID == id);
+            CartList.Add(proizvod);
+            return RedirectToAction("Show", new { id = proizvod.ID});
         }
 
         [Authorize(Roles = "Admin")]
@@ -39,6 +48,41 @@ namespace Webshop.Controllers
                 HomeController.listKategorije.Add(selectListItem);
             }
             return View();
+        }
+
+        private int FindID(Product product)
+        {
+            for (int i = 0; i < CartList.Count; i++)
+            {
+                if (product.ID == CartList[i].ID)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public string Buy()
+        {
+            return "Uspješno ste kupili prozvode";
+        }
+
+        public ActionResult Empty()
+        {
+            CartList.Clear();
+            return RedirectToAction("Cart");
+        }
+
+        public ActionResult Remove(int id)
+        {
+            Product p = db.Product.Single(x => x.ID == id);
+            CartList.RemoveAt(FindID(p));
+            return RedirectToAction("Cart");
+        }
+
+        public ActionResult Cart()
+        {
+            return View(CartList);
         }
 
         [Authorize(Roles = "Admin")]

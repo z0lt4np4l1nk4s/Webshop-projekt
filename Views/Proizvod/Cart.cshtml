@@ -1,0 +1,69 @@
+﻿@using Webshop.Controllers;
+@model IEnumerable<Webshop.Models.Product>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Košara</h2>
+
+@if (Model.Count() != 0)
+{
+    <h2>
+        @Html.ActionLink("Kupi", "Buy")
+    </h2>
+    <h4>@Html.ActionLink("Isprazni košaru", "Empty")</h4>
+    <h4 style="text-align:left; float:left;">Ukupna cijena: @Html.Partial("_UkupnaCijena", Model) kn</h4>
+}
+<table class="table" border="1" style="text-align:center; vertical-align:middle;">
+    <tr>
+        <th width="80">
+
+        </th>
+        <th>
+            @Html.Display("Naziv")
+        </th>
+        <th width="150">
+            @Html.Display("Cijena")
+        </th>
+        <th></th>
+    </tr>
+    @if (Model == null || Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="4">
+                <text>
+                    Još nema proizvoda u košarici
+                </text>
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.SlikaPath))
+                    {
+                        <img src="@Url.Content(item.SlikaPath)" width="75" height="75" alt="No photo" />
+                    }
+                    else
+                    {
+                        <img src="~/Images/NoPhoto.png" width="75" height="75" />
+                    }
+                </td>
+                <td style="vertical-align:middle">
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td style="vertical-align:middle">
+                    @Html.DisplayFor(modelItem => item.Cijena)
+                </td>
+                <td style="vertical-align:middle">
+                    @Html.ActionLink("Obriši", "Remove", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
