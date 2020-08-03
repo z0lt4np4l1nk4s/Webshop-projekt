@@ -9,6 +9,7 @@ namespace Webshop.Controllers
 {
     public class OrderController : Controller
     {
+        WebshopDBContext db = new WebshopDBContext();
         // GET: Order
         public ActionResult Buy()
         {
@@ -26,17 +27,12 @@ namespace Webshop.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<Product> list = Session["Cart"] as List<Product>;
-            using (WebshopDBContext db = new WebshopDBContext())
+            foreach (Product p in Session["Cart"] as List<Product>)
             {
-                foreach(Product p in list)
-                {
-                    order.Product = db.Product.Single(x => x.ID == p.ID);
-                    db.Order.Add(order);
-                    db.SaveChanges();
-                }
+                order.Product = db.Product.Single(x => x.ID == p.ID);
+                db.Order.Add(order);
+                db.SaveChanges();
             }
-            
             return RedirectToAction("Index", "Home");
         }
     }
