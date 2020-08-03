@@ -10,7 +10,6 @@ using Webshop.Models;
 
 namespace Webshop.Controllers
 {
-    
     public class ProizvodController : Controller
     {
         WebshopDBContext db = new WebshopDBContext();
@@ -20,7 +19,7 @@ namespace Webshop.Controllers
         {
             ViewBag.Kategorije = db.Category;
             Product proizvod = db.Product.Single(x => x.ID == id);
-            ViewBag.KatID = proizvod.ID;
+            ViewBag.KatID = proizvod.Kategorije.ID;
             return View(proizvod);
         }
 

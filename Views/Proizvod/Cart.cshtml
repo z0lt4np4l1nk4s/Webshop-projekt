@@ -9,7 +9,7 @@
 @if (Session["Cart"] != null)
 {
     <h2>
-        @Html.ActionLink("Kupi", "Buy")
+        @Html.ActionLink("Kupi", "Buy", "Order")
     </h2>
     <h4>@Html.ActionLink("Isprazni košaru", "Empty")</h4>
     <h4 style="text-align:left; float:left;">Ukupna cijena: @Html.Partial("_UkupnaCijena", Session["Cart"] as List<Webshop.Models.Product>) kn</h4>
