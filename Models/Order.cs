@@ -25,6 +25,6 @@ namespace Webshop.Models
         [Required(ErrorMessage = "Adresa je obavezna")]
         [Display(Name = "Adresa")]
         public string Adress { get; set; }
-        public Product Product { get; set; }
+        public ICollection<Product> Product { get; set; }
     }
 }
