@@ -60,7 +60,7 @@
                             <dd>
                                 @Html.DisplayFor(model => model.Garancija) <text>godina</text>
                             </dd>
-                            @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 8 || Model.Kategorije.ID == 9)
+                            @if (Model.CategoryID == 1 || Model.CategoryID == 8 || Model.CategoryID == 9)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.RAM):
@@ -71,7 +71,7 @@
                                 </dd>
                             }
 
-                            @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 6 || Model.Kategorije.ID == 7)
+                            @if (Model.CategoryID == 1 || Model.CategoryID == 6 || Model.CategoryID == 7)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.Prostor):
@@ -81,7 +81,7 @@
                                     @Html.DisplayFor(model => model.Prostor)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 10)
+                            @if (Model.CategoryID == 1 || Model.CategoryID == 10)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.Snaga):
@@ -98,7 +98,7 @@
                             <dd>
                                 @Html.DisplayFor(model => model.Velicina)
                             </dd>
-                            @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 5)
+                            @if (Model.CategoryID == 1 || Model.CategoryID == 5)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.RadnaFrekvencija):
@@ -116,7 +116,7 @@
                                     @Html.DisplayFor(model => model.BrojJezgri)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 1)
+                            @if (Model.CategoryID == 1)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.IntegriranaGraficka):
@@ -126,7 +126,7 @@
                                     @Html.DisplayFor(model => model.IntegriranaGraficka)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 2)
+                            @if (Model.CategoryID == 2)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.Rezolucija):
@@ -136,7 +136,7 @@
                                     @Html.DisplayFor(model => model.Rezolucija)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 1 || Model.Kategorije.ID == 2 || Model.Kategorije.ID == 3 || Model.Kategorije.ID == 4)
+                            @if (Model.CategoryID == 1 || Model.CategoryID == 2 || Model.CategoryID == 3 || Model.CategoryID == 4)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.Prikljucci):
@@ -146,7 +146,7 @@
                                     @Html.DisplayFor(model => model.Prikljucci)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 12)
+                            @if (Model.CategoryID == 12)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.TipSenzora):
@@ -165,7 +165,7 @@
                                 </dd>
                             }
 
-                            @if (Model.Kategorije.ID == 11 || Model.Kategorije.ID == 12)
+                            @if (Model.CategoryID == 11 || Model.CategoryID == 12)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.TehnologijaPovezivanja):
@@ -175,7 +175,7 @@
                                     @Html.DisplayFor(model => model.TehnologijaPovezivanja)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 1)
+                            @if (Model.CategoryID == 1)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.OperacijskiSustav):
@@ -185,7 +185,7 @@
                                     @Html.DisplayFor(model => model.OperacijskiSustav)
                                 </dd>
                             }
-                            @if (Model.Kategorije.ID == 11)
+                            @if (Model.CategoryID == 11)
                             {
                                 <dt>
                                     @Html.DisplayNameFor(model => model.VrstaTipkovnice):

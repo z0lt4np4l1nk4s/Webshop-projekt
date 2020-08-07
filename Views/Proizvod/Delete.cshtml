@@ -5,11 +5,18 @@
 }
 <h3>Jeste li sigurni da želite obrisati proizvod?</h3>
 <div>
-    <h4>Proizvodi</h4>
     <hr />
+    @if (!string.IsNullOrEmpty(Model.SlikaPath))
+    {
+        <img src="@Url.Content(Model.SlikaPath)" width="300" height="300" alt="No photo" />
+    }
+    else
+    {
+        <img src="~/Images/NoPhoto.png" width="300" height="300" alt="No photo" />
+    }
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.KategorijaID)
+            @Html.DisplayNameFor(model => model.Category)
         </dt>
 
         <dd>
@@ -184,22 +191,15 @@
             @Html.DisplayFor(model => model.VrstaTipkovnice)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SlikaPath)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SlikaPath)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Obriši" class="btn btn-default" /> |
-            @Html.ActionLink("Povratak", "Index")
+            @Html.ActionLink("Povratak", "Proizvodi", "Kategorija", new { cat = Model.CategoryID}, null)
         </div>
     }
 </div>

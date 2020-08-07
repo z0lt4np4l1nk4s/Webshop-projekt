@@ -1,9 +1,11 @@
 ﻿@{
     int a = 0;
     System.Text.StringBuilder sb = new System.Text.StringBuilder();
-    foreach (var item in Model)
+    List<Webshop.Models.Product> pro = Session["Cart"] as List<Webshop.Models.Product>;
+    List<KeyValuePair<int, int>> kol = Session["Kolicina"] as List<KeyValuePair<int, int>>;
+    for (int i = 0; i < pro.Count; i++)
     {
-        foreach (char c in item.Cijena)
+        foreach (char c in pro[i].Cijena)
         {
             if (char.IsDigit(c))
             {
@@ -14,8 +16,8 @@
                 break;
             }
         }
-        a += int.Parse(sb.ToString());
+        a += int.Parse(sb.ToString()) * kol[i].Value;
         sb.Clear();
     }
-    <text>@a</text>
+    <text><b>@a kn</b></text>
 }

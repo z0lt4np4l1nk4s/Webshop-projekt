@@ -26,7 +26,7 @@ namespace Webshop.Controllers
 
         public ActionResult Proizvodi(int cat, string search, string sortBy, int? page)
         {
-            var p = db.Product.Where(x => x.Kategorije.ID == cat).ToList().AsQueryable();
+            var p = db.Product.Where(x => x.Category.ID == cat).ToList().AsQueryable();
             ViewBag.Kategorije = db.Category;
             ViewBag.SortNaziv = sortBy == "Naziv" ? "Naziv desc" : "Naziv";
             ViewBag.SortCijena = sortBy == "Cijena" ? "Cijena desc" : "Cijena";
@@ -145,13 +145,13 @@ namespace Webshop.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult EditProizvod([Bind(Include = "ID,Kategorije")] Product proizvod)
+        public ActionResult EditProizvod([Bind(Include = "ID,CategoryID")] Product proizvod)
         {
             Product p = db.Product.Single(x => x.ID == proizvod.ID);
-            p.Kategorije = db.Category.Single(x => x.ID == proizvod.Kategorije.ID);
+            p.Category = db.Category.Single(x => x.ID == proizvod.CategoryID);
             db.Product.AddOrUpdate(p);
             db.SaveChanges();
-            return RedirectToAction("Proizvodi");
+            return RedirectToAction("Proizvod");
         }
 
         [Authorize(Roles = "Admin")]

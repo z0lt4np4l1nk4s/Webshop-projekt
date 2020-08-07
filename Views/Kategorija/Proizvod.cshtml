@@ -14,7 +14,7 @@
             @Html.DisplayNameFor(model => model.Naziv)
         </th>
         <th style="text-align:center">
-            @Html.DisplayNameFor(model => model.Kategorije)
+            @Html.DisplayNameFor(model => model.CategoryID)
         </th>
         <th style="text-align:center">Actions</th>
     </tr>
@@ -25,7 +25,7 @@
             @Html.DisplayFor(modelItem => item.Naziv)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Kategorije.ImeKategorije)
+            @Html.DisplayFor(modelItem => item.Category.ImeKategorije)
         </td>
         <td>
             @Html.ActionLink("Uredi", "EditProizvod", new { id=item.ID })

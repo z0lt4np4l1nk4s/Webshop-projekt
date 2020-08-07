@@ -22,7 +22,7 @@
                     @Html.ActionLink("Dodaj novi proizvod", "Create", "Proizvod")
                 </p>
             }
-            @using (Html.BeginForm("Kategorija", "Home", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"], page = Request.QueryString["page"] }, FormMethod.Get, null))
+            @using (Html.BeginForm("Proizvodi", "Kategorija", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"], page = Request.QueryString["page"] }, FormMethod.Get, null))
             {
                 @Html.TextBox("search")
                 @Html.Hidden("cat", Request.QueryString["cat"])
@@ -38,10 +38,10 @@
 
                     </th>
                     <th>
-                        @Html.ActionLink("Naziv", "Kategorija", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = ViewBag.SortNaziv, page = Request.QueryString["page"] })
+                        @Html.ActionLink("Naziv", "Proizvodi", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = ViewBag.SortNaziv, page = Request.QueryString["page"] })
                     </th>
                     <th width="150">
-                        @Html.ActionLink("Cijena", "Kategorija", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = ViewBag.SortCijena, page = Request.QueryString["page"] })
+                        @Html.ActionLink("Cijena", "Proizvodi", new { cat = Request.QueryString["cat"], search = Request.QueryString["search"], sortBy = ViewBag.SortCijena, page = Request.QueryString["page"] })
                     </th>
                     @if (User.IsInRole("Admin"))
                     {
@@ -83,7 +83,7 @@
                             {
                                 <td style="vertical-align:middle">
                                     @Html.ActionLink("Uredi", "Edit", "Proizvod", new { id = item.ID }, null) |
-                                    @Html.ActionLink("Uredi", "Delete", "Proizvod", new { id = item.ID }, null)
+                                    @Html.ActionLink("Izbriši", "Delete", "Proizvod", new { id = item.ID }, null)
                                 </td>
                             }
                         </tr>
@@ -93,6 +93,6 @@
             </table>
         </div>
         <hr />
-        @Html.PagedListPager(Model, page => Url.Action("Kategorija", new { cat = Request.QueryString["cat"], page, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+        @Html.PagedListPager(Model, page => Url.Action("Proizvodi", new { cat = Request.QueryString["cat"], page, search = Request.QueryString["search"], sortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
     </div>
 </div>

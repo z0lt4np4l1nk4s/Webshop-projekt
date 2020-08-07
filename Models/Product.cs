@@ -11,8 +11,11 @@ namespace Webshop.Models
     {
         [Key]
         public int ID { get; set; }
+        [Required(ErrorMessage = "Odaberite kategoriju!")]
         [Display(Name = "Kategorija")]
-        public virtual Category Kategorije { get; set; }
+        public int CategoryID { get; set; }
+
+        public virtual Category Category { get; set; }
         [Required]
         public string Naziv { get; set; }
         public string Opis { get; set; }
@@ -53,6 +56,5 @@ namespace Webshop.Models
         public string SlikaPath { get; set; }
         [NotMapped]
         public HttpPostedFileBase SlikaFile { get; set; }
-
     }
 }

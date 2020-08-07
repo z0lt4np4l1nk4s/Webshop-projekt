@@ -1,9 +1,9 @@
 ﻿@using Webshop.Models;
-@foreach (Kategorije k in ViewBag.Kategorije)
+@foreach (Category c in ViewBag.Kategorije)
 {
-    if (k.ID == Model.KategorijaID)
+    if (c.ID == Model.CategoryID)
     {
-        <text>@k.ImeKategorije</text>
+        <text>@c.ImeKategorije</text>
         continue;
     }
 }
